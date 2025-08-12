@@ -464,19 +464,19 @@ export default function StickerCalculator() {
 
                 {/* Acabado */}
                 <div className="space-y-2">
-                  <Label>Acabado</Label>
-                  <Select value={finish} onValueChange={setFinish}>
-                    <SelectTrigger className="rounded-xl">
-                      <SelectValue placeholder="Selecciona un acabado" />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-xl">
-                      {acabados.map((a) => (
-                        <SelectItem key={a.value} value={a.value}>
-                          {a.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+            <Label>Acabado</Label>
+<Select value={finish} onValueChange={(v) => setFinish(v as Finish)}>
+  <SelectTrigger className="rounded-xl">
+    <SelectValue placeholder="Selecciona un acabado" />
+  </SelectTrigger>
+  <SelectContent className="rounded-xl">
+    {acabados.map((a) => (
+      <SelectItem key={a.value} value={a.value}>
+        {a.label}
+      </SelectItem>
+    ))}
+  </SelectContent>
+</Select>
                 </div>
 
                 {/* Margen (auto) */}
