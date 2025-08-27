@@ -46,8 +46,8 @@ type Finish = typeof acabados[number]["value"];
 // Costos por hoja por acabado (MXN)
 const COST_PER_SHEET: Record<Finish, number> = {
   vinil_blanco: 5.9,
-  holo_clasico: 7.9,
-  holo_puntos: 7.9,
+  holo_clasico: 8.3,
+  holo_puntos: 8.3,
   holo_arena: 10,
   vinil_blanco_laminado: 17,
 };
