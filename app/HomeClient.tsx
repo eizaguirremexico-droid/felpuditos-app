@@ -401,114 +401,218 @@ export default function StickerCalculator() {
   };
 
   return (
-    <div className="relative min-h-screen w-full text-neutral-900">
-      {/* Fondo con patrón sutil */}
+    <div className="relative min-h-screen w-full text-slate-900 bg-gradient-to-br from-slate-50 via-white to-emerald-50">
+      {/* Fondo con patrón mejorado */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.06) 1px, transparent 0), linear-gradient(to bottom, #f8fafc, #ffffff)",
-          backgroundSize: "22px 22px, 100% 100%",
+            "radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.08) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 2px 2px, rgba(16, 185, 129, 0.1) 1px, transparent 0)",
+          backgroundSize: "800px 800px, 600px 600px, 32px 32px",
         }}
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-8">
-        <div className="mb-4 flex items-center justify-between">
-          <motion.h1
-            initial={{ opacity: 0, y: 8 }}
+      <div className="mx-auto max-w-7xl px-6 py-12">
+        {/* Header mejorado */}
+        <div className="mb-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 text-2xl font-semibold tracking-tight"
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mb-4"
           >
-            <Calculator className="h-6 w-6 text-emerald-600" />
-            Calculadora de stickers Felpuditos
-          </motion.h1>
-
-          <Badge className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-700">v1.13.0</Badge>
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg mb-4">
+              <Calculator className="h-8 w-8 text-white" />
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-slate-900 via-emerald-800 to-slate-900 bg-clip-text text-transparent">
+              Calculadora Felpuditos
+            </h1>
+            <p className="mt-3 text-lg text-slate-600 max-w-2xl mx-auto">
+              Calcula cotizaciones de stickers de manera profesional y precisa
+            </p>
+          </motion.div>
+          
+          <div className="flex items-center justify-center gap-3">
+            <Badge className="rounded-full bg-emerald-100 px-4 py-2 text-emerald-700 font-medium">v1.14.0</Badge>
+            <Badge className="rounded-full bg-blue-100 px-4 py-2 text-blue-700 font-medium">Interfaz Mejorada</Badge>
+          </div>
         </div>
-        <p className="mt-1 text-sm text-neutral-600">Diseño renovado. Misma lógica y resultados.</p>
 
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:gap-12">
           {/* Panel de controles */}
-          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-            <Card className="rounded-3xl border border-neutral-200 bg-white shadow-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-2 text-base"><Settings className="h-4 w-4 text-emerald-600" /> Parámetros</CardTitle>
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <Card className="rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl shadow-emerald-500/5 ring-1 ring-slate-200/50">
+              <CardHeader className="pb-6 pt-8">
+                <CardTitle className="flex items-center gap-3 text-xl font-semibold text-slate-800">
+                  <div className="p-2 rounded-xl bg-emerald-100">
+                    <Settings className="h-5 w-5 text-emerald-600" />
+                  </div>
+                  Configuración
+                </CardTitle>
+                <p className="text-sm text-slate-500 mt-1">Ajusta los parámetros de tu cotización</p>
               </CardHeader>
-              <CardContent className="space-y-5">
+              <CardContent className="space-y-6 pb-8">
                 {/* Cliente */}
-                <div className="space-y-2">
-                  <Label htmlFor="clientName">Nombre del cliente</Label>
-                  <Input id="clientName" value={clientName} onChange={(e) => setClientName(e.target.value)} placeholder="Ej. Aleli" className="rounded-xl border-neutral-300 focus-visible:ring-emerald-500" />
+                <div className="space-y-3">
+                  <Label htmlFor="clientName" className="text-sm font-medium text-slate-700">Nombre del cliente</Label>
+                  <Input 
+                    id="clientName" 
+                    value={clientName} 
+                    onChange={(e) => setClientName(e.target.value)} 
+                    placeholder="Ej. María González" 
+                    className="rounded-2xl border-slate-200 bg-white/50 px-4 py-3 text-base focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:border-emerald-300 transition-all duration-200" 
+                  />
                 </div>
 
                 {/* Tamaño */}
-                <div className="space-y-2">
-                  <Label htmlFor="size">Tamaño del sticker (cm)</Label>
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 px-1">
-                      <Slider id="size" min={1} max={10} step={1} value={[sizeCm]} onValueChange={handleSizeSlider} className="py-2" />
+                <div className="space-y-3">
+                  <Label htmlFor="size" className="text-sm font-medium text-slate-700">Tamaño del sticker</Label>
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4">
+                    <div className="flex items-center gap-4 mb-3">
+                      <div className="flex-1">
+                        <Slider 
+                          id="size" 
+                          min={1} 
+                          max={10} 
+                          step={1} 
+                          value={[sizeCm]} 
+                          onValueChange={handleSizeSlider} 
+                          className="py-2" 
+                        />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Input 
+                          type="number" 
+                          min={1} 
+                          max={10} 
+                          step={1} 
+                          value={sizeCm} 
+                          onChange={handleSizeInput} 
+                          className="w-16 rounded-xl text-center font-semibold border-slate-300" 
+                        />
+                        <span className="text-sm font-medium text-slate-600">cm</span>
+                      </div>
                     </div>
-                    <Input type="number" min={1} max={10} step={1} value={sizeCm} onChange={handleSizeInput} className="w-20 rounded-xl text-right" />
+                    <div className="flex justify-between text-xs text-slate-500">
+                      <span>1 cm</span>
+                      <span className="font-medium text-emerald-600">{sizeCm} cm seleccionado</span>
+                      <span>10 cm</span>
+                    </div>
                   </div>
-                  <p className="text-xs text-neutral-500">Rango: 1 a 10 cm (enteros).</p>
                 </div>
 
                 {/* Cantidad */}
-                <div className="space-y-2">
-                  <Label htmlFor="qty">Cantidad de stickers</Label>
-                  <Input id="qty" type="number" inputMode="numeric" placeholder="Ingresa la cantidad" value={qty} onChange={handleQtyInput} className="rounded-xl border-neutral-300 focus-visible:ring-emerald-500" />
-                  <p className="text-xs text-neutral-500">Campo de edición libre. Se aceptan cantidades grandes.</p>
+                <div className="space-y-3">
+                  <Label htmlFor="qty" className="text-sm font-medium text-slate-700">Cantidad de stickers</Label>
+                  <div className="relative">
+                    <Input 
+                      id="qty" 
+                      type="number" 
+                      inputMode="numeric" 
+                      placeholder="Ej. 500" 
+                      value={qty} 
+                      onChange={handleQtyInput} 
+                      className="rounded-2xl border-slate-200 bg-white/50 px-4 py-3 text-base font-medium focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:border-emerald-300 transition-all duration-200" 
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-400">uds</div>
+                  </div>
+                  <p className="text-xs text-slate-500">💡 Acepta cualquier cantidad, incluso números grandes</p>
                 </div>
 
                 {/* Acabado */}
-                <div className="space-y-2">
-            <Label>Acabado</Label>
-<Select value={finish} onValueChange={(v) => setFinish(v as Finish)}>
-  <SelectTrigger className="rounded-xl">
-    <SelectValue placeholder="Selecciona un acabado" />
-  </SelectTrigger>
-  <SelectContent className="rounded-xl">
-    {acabados.map((a) => (
-      <SelectItem key={a.value} value={a.value}>
-        {a.label}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select>
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium text-slate-700">Tipo de acabado</Label>
+                  <Select value={finish} onValueChange={(v) => setFinish(v as Finish)}>
+                    <SelectTrigger className="rounded-2xl border-slate-200 bg-white/50 px-4 py-3 text-base focus:ring-2 focus:ring-emerald-500 focus:border-emerald-300 transition-all duration-200">
+                      <SelectValue placeholder="Selecciona un acabado" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-2xl border-slate-200 bg-white/95 backdrop-blur-sm shadow-xl">
+                      {acabados.map((a) => (
+                        <SelectItem key={a.value} value={a.value} className="rounded-xl focus:bg-emerald-50 focus:text-emerald-900">
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500"></div>
+                            {a.label}
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {/* Margen (auto) */}
-                <div className="space-y-2">
-                  <Label>Margen de ganancia (auto)</Label>
-                  <div className="flex items-center gap-2">
-                    <Input value={formatPercent(margin)} readOnly className="w-28 rounded-xl" />
-                    <Badge variant="secondary" className="whitespace-nowrap rounded-full">{sizeCm <= 7 ? "1–7 cm → 46%" : "8–10 cm → 33%"}</Badge>
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium text-slate-700">Margen de ganancia</Label>
+                  <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-emerald-50 to-blue-50 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-2xl font-bold text-emerald-700">{formatPercent(margin)}</span>
+                      <Badge 
+                        variant="secondary" 
+                        className={`rounded-full px-3 py-1 font-medium ${
+                          sizeCm <= 7 
+                            ? 'bg-emerald-100 text-emerald-800' 
+                            : 'bg-blue-100 text-blue-800'
+                        }`}
+                      >
+                        {sizeCm <= 7 ? "Tamaño pequeño" : "Tamaño grande"}
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-slate-600">
+                      🎯 {sizeCm <= 7 ? "1–7 cm: Margen del 46%" : "8–10 cm: Margen del 33%"}
+                    </p>
                   </div>
-                  <p className="text-xs text-neutral-500">Se ajusta automáticamente según el tamaño.</p>
                 </div>
 
                 {/* Envío (editable) */}
-                <div className="space-y-2">
-                  <Label htmlFor="shipping">Envío</Label>
-                  <div className="flex items-center gap-2">
-                    <Input id="shipping" type="number" step="0.01" value={shipping} onChange={handleShippingInput} className="w-40 rounded-xl" />
-                    <Badge variant="outline" className="rounded-full">Editable</Badge>
+                <div className="space-y-3">
+                  <Label htmlFor="shipping" className="text-sm font-medium text-slate-700">Costo de envío</Label>
+                  <div className="flex items-center gap-3">
+                    <div className="relative flex-1">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 font-medium">$</span>
+                      <Input 
+                        id="shipping" 
+                        type="number" 
+                        step="0.01" 
+                        value={shipping} 
+                        onChange={handleShippingInput} 
+                        className="rounded-2xl border-slate-200 bg-white/50 pl-8 pr-12 py-3 text-base font-medium focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:border-emerald-300 transition-all duration-200" 
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">MXN</span>
+                    </div>
+                    <Badge variant="outline" className="rounded-full border-emerald-200 text-emerald-700 px-3 py-1">Editable</Badge>
                   </div>
-                  <p className="text-xs text-neutral-500">Costo por defecto: 159 MXN (ajústalo si aplica).</p>
+                  <p className="text-xs text-slate-500">💰 Valor por defecto: $159 MXN</p>
                 </div>
 
                 {/* Acciones */}
-                <div className="flex flex-wrap gap-2 pt-1">
-                  <motion.div whileTap={{ scale: 0.97 }} onClick={tapFeedback}>
-                    <Button onClick={onSaveQuote} className="gap-2 rounded-2xl bg-emerald-600 text-white shadow-sm hover:bg-emerald-700">
-                      <PlusCircle className="h-4 w-4" /> Guardar cotización
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <motion.div 
+                    whileTap={{ scale: 0.95 }} 
+                    whileHover={{ scale: 1.02 }}
+                    onClick={tapFeedback}
+                  >
+                    <Button 
+                      onClick={onSaveQuote} 
+                      className="gap-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-lg hover:from-emerald-700 hover:to-emerald-800 px-6 py-3 text-base font-medium transition-all duration-200"
+                    >
+                      <PlusCircle className="h-5 w-5" /> Guardar cotización
                     </Button>
                   </motion.div>
-                  <motion.div whileTap={{ scale: 0.97 }} onClick={tapFeedback}>
-                    <Button variant="secondary" onClick={reset} className="gap-2 rounded-2xl bg-neutral-100 text-neutral-700 shadow-sm hover:bg-neutral-200">
-                      <RotateCcw className="h-4 w-4" /> Restablecer
+                  <motion.div 
+                    whileTap={{ scale: 0.95 }} 
+                    whileHover={{ scale: 1.02 }}
+                    onClick={tapFeedback}
+                  >
+                    <Button 
+                      variant="secondary" 
+                      onClick={reset} 
+                      className="gap-3 rounded-2xl bg-slate-100 text-slate-700 shadow-md hover:bg-slate-200 px-6 py-3 text-base font-medium transition-all duration-200"
+                    >
+                      <RotateCcw className="h-5 w-5" /> Restablecer
                     </Button>
                   </motion.div>
                 </div>
@@ -517,140 +621,196 @@ export default function StickerCalculator() {
           </motion.div>
 
           {/* Panel de resultados */}
-          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-            <Card className="rounded-3xl border border-neutral-200 bg-white shadow-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-2 text-base"><Layers className="h-4 w-4 text-emerald-600" /> Datos de producción y costos</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {/* Producción básica */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-2xl border p-4">
-                    <p className="text-xs text-neutral-500">Stickers por hoja</p>
-                    <p className="mt-1 text-2xl font-semibold">{stickersPerSheet}</p>
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Card className="rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl shadow-blue-500/5 ring-1 ring-slate-200/50">
+              <CardHeader className="pb-6 pt-8">
+                <CardTitle className="flex items-center gap-3 text-xl font-semibold text-slate-800">
+                  <div className="p-2 rounded-xl bg-blue-100">
+                    <Layers className="h-5 w-5 text-blue-600" />
                   </div>
-                  <div className="rounded-2xl border p-4">
-                    <p className="text-xs text-neutral-500">Hojas necesarias</p>
-                    <div className="mt-1 flex items-center gap-2">
-                      <p className="text-2xl font-semibold">{sheetsNeeded}</p>
-                      <Badge className="gap-1" variant="outline">
-                        <CheckCircle2 className="h-3.5 w-3.5" /> redondeado arriba
+                  Resultados y Costos
+                </CardTitle>
+                <p className="text-sm text-slate-500 mt-1">Desglose detallado de tu cotización</p>
+              </CardHeader>
+              <CardContent className="space-y-6 pb-8">
+                {/* Producción básica */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-sm">
+                    <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Stickers por hoja</p>
+                    <p className="mt-2 text-3xl font-bold text-slate-800">{stickersPerSheet}</p>
+                    <div className="mt-1 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full" style={{width: `${(stickersPerSheet / 50) * 100}%`}}></div>
+                    </div>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-sm">
+                    <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Hojas necesarias</p>
+                    <div className="mt-2 flex items-center gap-3">
+                      <p className="text-3xl font-bold text-slate-800">{sheetsNeeded}</p>
+                      <Badge className="gap-1 bg-emerald-100 text-emerald-800 border-emerald-200" variant="outline">
+                        <CheckCircle2 className="h-3.5 w-3.5" /> redondeado
                       </Badge>
                     </div>
                   </div>
                 </div>
 
                 {/* Nota de redondeo */}
-                <div className="rounded-xl bg-neutral-50 p-3 text-sm text-neutral-700">
-                  <div className="flex items-start gap-2">
-                    <Info className="mt-0.5 h-4 w-4" />
-                    <div>
-                      Si la cantidad de hojas resulta fraccionada, siempre se redondea 1 hoja hacia arriba.
+                <div className="rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="p-1 rounded-lg bg-blue-100">
+                      <Info className="h-4 w-4 text-blue-600" />
+                    </div>
+                    <div className="text-sm text-blue-800">
+                      <span className="font-medium">Nota:</span> Las hojas fraccionadas siempre se redondean hacia arriba para garantizar la cantidad solicitada.
                     </div>
                   </div>
                 </div>
 
                 {/* Costos por vinil */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-2xl border p-4">
-                    <p className="text-xs text-neutral-500">Costo por hoja (según acabado)</p>
-                    <p className="mt-1 text-lg font-medium">{formatCurrency(costPerSheet)}</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-sm">
+                    <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Costo por hoja</p>
+                    <p className="mt-2 text-xl font-bold text-slate-800">{formatCurrency(costPerSheet)}</p>
+                    <p className="text-xs text-slate-500 mt-1">Según acabado seleccionado</p>
                   </div>
-                  <div className="rounded-2xl border p-4">
-                    <p className="text-xs text-neutral-500">Costo total de vinil</p>
-                    <p className="mt-1 text-lg font-medium">{formatCurrency(totalVinylCost)}</p>
+                  <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-sm">
+                    <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Costo total vinil</p>
+                    <p className="mt-2 text-xl font-bold text-slate-800">{formatCurrency(totalVinylCost)}</p>
+                    <p className="text-xs text-slate-500 mt-1">{sheetsNeeded} hojas × {formatCurrency(costPerSheet)}</p>
                   </div>
                 </div>
 
                 {/* Gastos fijos */}
-                <div className="rounded-2xl border p-4">
-                  <div className="flex items-center justify-between">
-                    <p className="text-xs text-neutral-500">Gastos fijos (suma)</p>
-                    <p className="text-lg font-medium">{formatCurrency(fixedTotal)}</p>
+                <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-sm">
+                  <div className="flex items-center justify-between mb-4">
+                    <p className="text-sm font-semibold text-slate-700">📋 Gastos fijos</p>
+                    <p className="text-xl font-bold text-slate-800">{formatCurrency(fixedTotal)}</p>
                   </div>
-                  <div className="mt-3 grid grid-cols-1 gap-2 text-sm">
+                  <div className="grid grid-cols-1 gap-3 text-sm">
                     {FIXED_COSTS.map((c) => (
-                      <div key={c.key} className="flex items-center justify-between">
-                        <span className="text-neutral-600">{c.label}</span>
-                        <span className="font-medium">{formatCurrency(c.value)}</span>
+                      <div key={c.key} className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-50/50 border border-slate-100">
+                        <span className="text-slate-600 font-medium">{c.label}</span>
+                        <span className="font-semibold text-slate-800">{formatCurrency(c.value)}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Costos variables */}
-                <div className="rounded-2xl border p-4">
-                  <div className="flex items-center justify-between">
-                    <p className="text-xs text-neutral-500">Costos variables</p>
-                    <p className="text-lg font-medium">{formatCurrency(variablesTotal)}</p>
+                <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-sm">
+                  <div className="flex items-center justify-between mb-4">
+                    <p className="text-sm font-semibold text-slate-700">⚙️ Costos variables</p>
+                    <p className="text-xl font-bold text-slate-800">{formatCurrency(variablesTotal)}</p>
                   </div>
-                  <div className="mt-3 grid grid-cols-1 gap-2 text-sm">
-                    <div className="flex items-center justify-between">
-                      <span className="text-neutral-600">Tinta ({formatCurrency(VARIABLE_RATES.tinta)}/hoja)</span>
-                      <span className="font-medium">{formatCurrency(variableBySheet.tinta)}</span>
+                  <div className="grid grid-cols-1 gap-3 text-sm">
+                    <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-50/50 border border-slate-100">
+                      <span className="text-slate-600 font-medium">🖨️ Tinta ({formatCurrency(VARIABLE_RATES.tinta)}/hoja)</span>
+                      <span className="font-semibold text-slate-800">{formatCurrency(variableBySheet.tinta)}</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-neutral-600">Corte ({formatCurrency(VARIABLE_RATES.corte)}/hoja)</span>
-                      <span className="font-medium">{formatCurrency(variableBySheet.corte)}</span>
+                    <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-50/50 border border-slate-100">
+                      <span className="text-slate-600 font-medium">✂️ Corte ({formatCurrency(VARIABLE_RATES.corte)}/hoja)</span>
+                      <span className="font-semibold text-slate-800">{formatCurrency(variableBySheet.corte)}</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-neutral-600">Cinta mágica ({formatCurrency(VARIABLE_RATES.cinta_magica)}/hoja)</span>
-                      <span className="font-medium">{formatCurrency(variableBySheet.cinta)}</span>
+                    <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-50/50 border border-slate-100">
+                      <span className="text-slate-600 font-medium">🎗️ Cinta mágica ({formatCurrency(VARIABLE_RATES.cinta_magica)}/hoja)</span>
+                      <span className="font-semibold text-slate-800">{formatCurrency(variableBySheet.cinta)}</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-neutral-600">Plástico envoltorio (2.10/100 stickers)</span>
-                      <span className="font-medium">{formatCurrency(packaging)}</span>
+                    <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-50/50 border border-slate-100">
+                      <span className="text-slate-600 font-medium">📦 Plástico envoltorio (2.10/100 stickers)</span>
+                      <span className="font-semibold text-slate-800">{formatCurrency(packaging)}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Costos operarios */}
-                <div className="rounded-2xl border p-4">
-                  <p className="text-xs text-neutral-500">Costos operarios (total)</p>
-                  <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-                    <div className="flex items-center justify-between"><span className="text-neutral-600">Vinil</span><span className="font-medium">{formatCurrency(totalVinylCost)}</span></div>
-                    <div className="flex items-center justify-between"><span className="text-neutral-600">Fijos</span><span className="font-medium">{formatCurrency(fixedTotal)}</span></div>
-                    <div className="flex items-center justify-between"><span className="text-neutral-600">Variables</span><span className="font-medium">{formatCurrency(variablesTotal)}</span></div>
-                    <div className="flex items-center justify-between"><span className="text-neutral-600">Envío</span><span className="font-medium">{formatCurrency(shipping)}</span></div>
+                <div className="rounded-2xl border border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50 p-5 shadow-sm">
+                  <p className="text-sm font-semibold text-orange-800 mb-4">🏭 Costos operarios totales</p>
+                  <div className="grid grid-cols-2 gap-3 text-sm mb-4">
+                    <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-white/60 border border-orange-100">
+                      <span className="text-orange-700 font-medium">Vinil</span>
+                      <span className="font-semibold text-orange-800">{formatCurrency(totalVinylCost)}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-white/60 border border-orange-100">
+                      <span className="text-orange-700 font-medium">Fijos</span>
+                      <span className="font-semibold text-orange-800">{formatCurrency(fixedTotal)}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-white/60 border border-orange-100">
+                      <span className="text-orange-700 font-medium">Variables</span>
+                      <span className="font-semibold text-orange-800">{formatCurrency(variablesTotal)}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-white/60 border border-orange-100">
+                      <span className="text-orange-700 font-medium">Envío</span>
+                      <span className="font-semibold text-orange-800">{formatCurrency(shipping)}</span>
+                    </div>
                   </div>
-                  <p className="mt-4 text-xl font-semibold">{formatCurrency(operariosTotal)}</p>
+                  <div className="text-center py-3 rounded-xl bg-orange-100 border border-orange-200">
+                    <span className="text-2xl font-black text-orange-900">{formatCurrency(operariosTotal)}</span>
+                    <p className="text-xs text-orange-700 mt-1">Total de costos de producción</p>
+                  </div>
                 </div>
 
                 {/* Venta: margen, IVA y total (vertical) */}
-                <div className="rounded-2xl border p-4">
-                  <p className="text-xs text-neutral-500">Resumen de venta</p>
-                  <div className="mt-3 space-y-2 text-sm">
-                    <div className="flex items-center justify-between"><span className="text-neutral-600">Margen de ganancia</span><span className="font-medium">{formatCurrency(profit)}</span></div>
-                    <div className="flex items-center justify-between"><span className="text-neutral-600">Subtotal (operarios + margen)</span><span className="font-medium">{formatCurrency(subtotal)}</span></div>
-                    <div className="flex items-center justify-between"><span className="text-neutral-600">IVA (16%)</span><span className="font-medium">{formatCurrency(iva)}</span></div>
+                <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm">
+                  <p className="text-sm font-semibold text-slate-700 mb-4">💰 Resumen de venta</p>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-center justify-between py-2 border-b border-slate-100">
+                      <span className="text-slate-600 font-medium">Margen de ganancia</span>
+                      <span className="font-semibold text-slate-800">{formatCurrency(profit)}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 border-b border-slate-100">
+                      <span className="text-slate-600 font-medium">Subtotal (operarios + margen)</span>
+                      <span className="font-semibold text-slate-800">{formatCurrency(subtotal)}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2">
+                      <span className="text-slate-600 font-medium">IVA (16%)</span>
+                      <span className="font-semibold text-slate-800">{formatCurrency(iva)}</span>
+                    </div>
                   </div>
-                  <div className="mt-4 flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-                    <span className="text-emerald-900 font-medium">TOTAL al cliente</span>
-                    <span className="text-4xl font-extrabold tracking-tight text-emerald-900">{formatCurrencyInt(totalRounded)}</span>
+                  <div className="mt-6 relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl opacity-10"></div>
+                    <div className="relative flex items-center justify-between rounded-2xl border-2 border-emerald-300 bg-gradient-to-r from-emerald-50 to-emerald-100 p-6">
+                      <div>
+                        <span className="text-emerald-900 font-semibold text-lg">TOTAL al cliente</span>
+                        <p className="text-xs text-emerald-700 mt-1">Precio final con IVA incluido</p>
+                      </div>
+                      <span className="text-5xl font-black tracking-tight text-emerald-900">{formatCurrencyInt(totalRounded)}</span>
+                    </div>
                   </div>
 
                   {/* Desglose de beneficios */}
-                  <div className="mt-4 space-y-2">
-                    <p className="text-xs text-neutral-500">Desglose de beneficios</p>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-neutral-600">Costo por sticker (cliente)</span>
-                      <span className="font-medium text-xs">{qty > 0 ? formatCurrency(pricePerSticker) : "—"}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-neutral-600">Aleli 55% de (IVA + margen)</span>
-                      <span className="font-semibold text-green-700">{formatCurrency(aleli)}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-neutral-600">Pepe 45% de (IVA + margen)</span>
-                      <span className="font-semibold text-green-700">{formatCurrency(pepe)}</span>
+                  <div className="mt-6 space-y-3">
+                    <p className="text-sm font-semibold text-slate-700">💎 Desglose de beneficios</p>
+                    <div className="grid grid-cols-1 gap-3">
+                      <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-50 border border-slate-200">
+                        <span className="text-slate-600 font-medium">Costo por sticker (cliente)</span>
+                        <span className="font-semibold text-slate-800">{qty > 0 ? formatCurrency(pricePerSticker) : "—"}</span>
+                      </div>
+                      <div className="flex items-center justify-between py-3 px-4 rounded-xl bg-green-50 border border-green-200">
+                        <span className="text-green-700 font-medium">💚 Aleli 55% de (IVA + margen)</span>
+                        <span className="font-bold text-green-800 text-lg">{formatCurrency(aleli)}</span>
+                      </div>
+                      <div className="flex items-center justify-between py-3 px-4 rounded-xl bg-green-50 border border-green-200">
+                        <span className="text-green-700 font-medium">💚 Pepe 45% de (IVA + margen)</span>
+                        <span className="font-bold text-green-800 text-lg">{formatCurrency(pepe)}</span>
+                      </div>
                     </div>
                   </div>
 
                   {/* Imprimir cotización (simple) */}
-                  <div className="mt-4">
-                    <motion.div whileTap={{ scale: 0.97 }} onClick={tapFeedback}>
-                      <Button onClick={handleGeneratePrintTextSingle} className="gap-2 rounded-2xl bg-emerald-600 text-white shadow-sm hover:bg-emerald-700">
-                        Imprimir cotización
+                  <div className="mt-6">
+                    <motion.div 
+                      whileTap={{ scale: 0.95 }} 
+                      whileHover={{ scale: 1.02 }}
+                      onClick={tapFeedback}
+                    >
+                      <Button 
+                        onClick={handleGeneratePrintTextSingle} 
+                        className="w-full gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg hover:from-blue-700 hover:to-blue-800 px-6 py-3 text-base font-medium transition-all duration-200"
+                      >
+                        <ReceiptText className="h-5 w-5" /> Generar cotización
                       </Button>
                     </motion.div>
                   </div>
@@ -661,76 +821,119 @@ export default function StickerCalculator() {
         </div>
 
         {/* Cotización múltiple */}
-        <div className="mt-6">
-          <Card className="rounded-3xl border border-neutral-200 bg-white shadow-sm">
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-base"><ReceiptText className="h-4 w-4 text-emerald-600" /> Cotización múltiple</CardTitle>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-12"
+        >
+          <Card className="rounded-3xl border-0 bg-white/80 backdrop-blur-sm shadow-xl shadow-purple-500/5 ring-1 ring-slate-200/50">
+            <CardHeader className="pb-6 pt-8">
+              <CardTitle className="flex items-center gap-3 text-xl font-semibold text-slate-800">
+                <div className="p-2 rounded-xl bg-purple-100">
+                  <ReceiptText className="h-5 w-5 text-purple-600" />
+                </div>
+                Cotización Múltiple
+              </CardTitle>
+              <p className="text-sm text-slate-500 mt-1">Combina varias cotizaciones en una sola propuesta</p>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6 pb-8">
               {savedQuotes.length === 0 ? (
-                <p className="text-sm text-neutral-500">Aún no has guardado cotizaciones. Configura y presiona <strong>Guardar cotización</strong>.</p>
+                <div className="text-center py-12">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-slate-100 mb-4">
+                    <ReceiptText className="h-8 w-8 text-slate-400" />
+                  </div>
+                  <p className="text-base text-slate-600 mb-2">No hay cotizaciones guardadas</p>
+                  <p className="text-sm text-slate-500">Configura los parámetros y presiona <strong>Guardar cotización</strong> para comenzar.</p>
+                </div>
               ) : (
                 <>
-                  <div className="grid grid-cols-1 gap-2 text-sm">
-                    {savedQuotes.map((q) => (
-                      <div key={q.id} className="flex items-center justify-between rounded-xl border p-3">
-                        <div className="flex flex-col">
-                          <span className="font-medium">{q.clientName ? `${q.clientName} · ` : ""}{q.sizeCm} cm · {q.qty} uds · {q.finishLabel}</span>
-                          <span className="text-xs text-neutral-500">Margen aplicado: {formatPercent(q.marginRate)}</span>
-                          <span className="text-xs text-neutral-500">Hojas necesarias: {computeSheetsNeeded(q.qty, q.sizeCm)}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="text-right">
-                            <p className="text-sm font-semibold">{formatCurrencyInt(q.totalWithIncludedRounded)}</p>
-                            <p className="text-xs text-neutral-500">(incluye ${INCLUDED_FEE_PER_QUOTE} envío)</p>
+                  <div className="space-y-4">
+                    {savedQuotes.map((q, index) => (
+                      <motion.div 
+                        key={q.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="group"
+                      >
+                        <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-gradient-to-r from-white to-slate-50 p-4 shadow-sm hover:shadow-md transition-all duration-200">
+                          <div className="flex flex-col space-y-2">
+                            <div className="flex items-center gap-2">
+                              <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                              <span className="font-semibold text-slate-800">
+                                {q.clientName ? `${q.clientName} · ` : ""}{q.sizeCm} cm · {q.qty.toLocaleString()} uds
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-4 text-xs text-slate-500">
+                              <span className="flex items-center gap-1">
+                                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500"></div>
+                                {q.finishLabel}
+                              </span>
+                              <span>Margen: {formatPercent(q.marginRate)}</span>
+                              <span>Hojas: {computeSheetsNeeded(q.qty, q.sizeCm)}</span>
+                            </div>
                           </div>
-                          <motion.div whileTap={{ scale: 0.97 }} onClick={tapFeedback}>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              aria-label="Borrar cotización"
-                              className="text-red-600 hover:text-red-700"
-                              onClick={() => removeQuote(q.id)}
+                          <div className="flex items-center gap-3">
+                            <div className="text-right">
+                              <p className="text-lg font-bold text-slate-800">{formatCurrencyInt(q.totalWithIncludedRounded)}</p>
+                              <p className="text-xs text-slate-500">(incluye ${INCLUDED_FEE_PER_QUOTE} envío)</p>
+                            </div>
+                            <motion.div 
+                              whileTap={{ scale: 0.95 }} 
+                              whileHover={{ scale: 1.05 }}
+                              onClick={tapFeedback}
                             >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </motion.div>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                aria-label="Borrar cotización"
+                                className="text-red-500 hover:text-red-600 hover:bg-red-50 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200"
+                                onClick={() => removeQuote(q.id)}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </motion.div>
+                          </div>
                         </div>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
 
                   {/* Resumen rápido */}
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="rounded-2xl border p-4">
-                      <p className="text-xs text-neutral-500">Suma de cotizaciones (con ${INCLUDED_FEE_PER_QUOTE} c/u)</p>
-                      <p className="mt-1 text-lg font-medium">{formatCurrencyInt(sumWithFee)}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-sm">
+                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Suma cotizaciones</p>
+                      <p className="mt-2 text-2xl font-bold text-slate-800">{formatCurrencyInt(sumWithFee)}</p>
+                      <p className="text-xs text-slate-500 mt-1">Con ${INCLUDED_FEE_PER_QUOTE} c/u incluido</p>
                     </div>
-                    <div className="rounded-2xl border p-4">
-                      <p className="text-xs text-neutral-500">Envío restante</p>
-                      <p className="mt-1 text-lg font-medium">{formatCurrencyInt(remainingShipping)}</p>
+                    <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5 shadow-sm">
+                      <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Envío restante</p>
+                      <p className="mt-2 text-2xl font-bold text-slate-800">{formatCurrencyInt(remainingShipping)}</p>
+                      <p className="text-xs text-slate-500 mt-1">{remainingShipping <= 0 ? "Envío gratis" : "Costo adicional"}</p>
                     </div>
-                    <div className="rounded-2xl border p-4">
-                      <p className="text-xs text-neutral-500">Cotizaciones guardadas</p>
-                      <p className="mt-1 text-lg font-medium">{savedQuotes.length}</p>
+                    <div className="rounded-2xl border border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100 p-5 shadow-sm">
+                      <p className="text-xs font-medium text-purple-600 uppercase tracking-wide">Total cotizaciones</p>
+                      <p className="mt-2 text-2xl font-bold text-purple-800">{savedQuotes.length}</p>
+                      <p className="text-xs text-purple-600 mt-1">Elementos guardados</p>
                     </div>
                   </div>
 
-                  {/* Beneficio total de la multicotización (solo UI, NO se imprime en WhatsApp) */}
-                  <div className="rounded-2xl border p-4">
-                    <p className="text-xs text-neutral-500">Beneficio total de la multicotización</p>
-                    <div className="mt-2 grid grid-cols-3 gap-3 text-sm">
-                      <div className="flex items-center justify-between">
-                        <span className="text-neutral-600">IVA + margen (total)</span>
-                        <span className="font-semibold">{formatCurrency(multiBenefitBase)}</span>
+                  {/* Beneficio total de la multicotización */}
+                  <div className="rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 p-6 shadow-sm">
+                    <p className="text-sm font-semibold text-green-800 mb-4">💰 Beneficio total multicotización</p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="text-center py-4 rounded-xl bg-white/60 border border-green-200">
+                        <p className="text-xs text-green-600 font-medium uppercase tracking-wide">IVA + Margen Total</p>
+                        <p className="text-xl font-bold text-green-800 mt-1">{formatCurrency(multiBenefitBase)}</p>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-neutral-600">Aleli 55%</span>
-                        <span className="font-semibold text-green-700">{formatCurrency(multiAleli)}</span>
+                      <div className="text-center py-4 rounded-xl bg-green-100 border border-green-300">
+                        <p className="text-xs text-green-700 font-medium uppercase tracking-wide">Aleli 55%</p>
+                        <p className="text-xl font-bold text-green-900 mt-1">{formatCurrency(multiAleli)}</p>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-neutral-600">Pepe 45%</span>
-                        <span className="font-semibold text-green-700">{formatCurrency(multiPepe)}</span>
+                      <div className="text-center py-4 rounded-xl bg-green-100 border border-green-300">
+                        <p className="text-xs text-green-700 font-medium uppercase tracking-wide">Pepe 45%</p>
+                        <p className="text-xl font-bold text-green-900 mt-1">{formatCurrency(multiPepe)}</p>
                       </div>
                     </div>
                   </div>
@@ -740,38 +943,85 @@ export default function StickerCalculator() {
           </Card>
 
           {/* Imprimir cotización (múltiple) */}
-          <div className="mt-4 space-y-2">
-            <motion.div whileTap={{ scale: 0.97 }} onClick={tapFeedback}>
-              <Button onClick={handleGeneratePrintTextMulti} className="gap-2 rounded-2xl bg-emerald-600 text-white shadow-sm hover:bg-emerald-700">
-                Imprimir cotización
+          <div className="mt-6 space-y-4">
+            <motion.div 
+              whileTap={{ scale: 0.95 }} 
+              whileHover={{ scale: 1.02 }}
+              onClick={tapFeedback}
+            >
+              <Button 
+                onClick={handleGeneratePrintTextMulti} 
+                className="w-full gap-3 rounded-2xl bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg hover:from-purple-700 hover:to-purple-800 px-6 py-3 text-base font-medium transition-all duration-200"
+              >
+                <ReceiptText className="h-5 w-5" /> Generar cotización múltiple
               </Button>
             </motion.div>
 
             {printText && (
-              <div className="rounded-xl border p-3">
-                <label className="text-xs text-neutral-500">Texto para WhatsApp</label>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="p-1 rounded-lg bg-blue-100">
+                    <ReceiptText className="h-4 w-4 text-blue-600" />
+                  </div>
+                  <label className="text-sm font-semibold text-slate-700">Texto para WhatsApp</label>
+                </div>
                 <textarea
                   ref={printAreaRef}
                   readOnly
                   value={printText}
-                  className="mt-2 h-40 w-full resize-y rounded-md border bg-neutral-50 p-2 text-sm outline-none"
+                  className="w-full h-40 resize-y rounded-xl border border-slate-200 bg-slate-50/50 p-4 text-sm font-mono leading-relaxed focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                 />
-                <div className="mt-2 flex justify-end">
-                  <motion.div whileTap={{ scale: 0.97 }} onClick={tapFeedback}>
-                    <Button onClick={handleCopy} className="gap-2 rounded-2xl bg-neutral-900 text-white hover:bg-black">
-                      {copied ? "¡Copiado!" : "Copiar"}
+                <div className="mt-4 flex justify-end">
+                  <motion.div 
+                    whileTap={{ scale: 0.95 }} 
+                    whileHover={{ scale: 1.02 }}
+                    onClick={tapFeedback}
+                  >
+                    <Button 
+                      onClick={handleCopy} 
+                      className={`gap-2 rounded-2xl px-6 py-2 text-base font-medium transition-all duration-200 ${
+                        copied 
+                          ? 'bg-green-600 hover:bg-green-700 text-white' 
+                          : 'bg-slate-800 hover:bg-slate-900 text-white'
+                      }`}
+                    >
+                      {copied ? (
+                        <>
+                          <CheckCircle2 className="h-4 w-4" /> ¡Copiado!
+                        </>
+                      ) : (
+                        <>
+                          <ReceiptText className="h-4 w-4" /> Copiar texto
+                        </>
+                      )}
                     </Button>
                   </motion.div>
                 </div>
-              </div>
+              </motion.div>
             )}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Footer */}
-        <div className="mt-6 text-center text-xs text-neutral-500">
-          v1.13.0 • UI Refresh (estética tipo dashboard)
-        </div>
+        {/* Footer mejorado */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-16 text-center"
+        >
+          <div className="inline-flex items-center gap-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-slate-200 px-6 py-4 shadow-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+              <span className="text-sm font-medium text-slate-700">v1.14.0</span>
+            </div>
+            <div className="w-px h-4 bg-slate-300"></div>
+            <span className="text-sm text-slate-600">Interfaz Renovada • Felpuditos</span>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
