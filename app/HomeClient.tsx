@@ -49,7 +49,7 @@ const COST_PER_SHEET: Record<Finish, number> = {
   holo_clasico: 8.3,
   holo_puntos: 8.3,
   holo_arena: 10,
-  vinil_blanco_laminado: 17,
+  vinil_blanco_laminado: 11,
 };
 
 // Gastos fijos (MXN)
