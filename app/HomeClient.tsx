@@ -34,6 +34,7 @@ const PER_SHEET: Record<number, number> = {
 
 // Acabados disponibles (tipado estricto)
 const acabados = [
+  { value: "vinil_blanco_mate", label: "Vinil blanco mate" },
   { value: "vinil_blanco", label: "Vinil blanco" },
   { value: "holo_clasico", label: "Holo clásico" },
   { value: "holo_puntos", label: "Holo puntos" },
@@ -45,6 +46,7 @@ type Finish = typeof acabados[number]["value"];
 
 // Costos por hoja por acabado (MXN)
 const COST_PER_SHEET: Record<Finish, number> = {
+  vinil_blanco_mate: 5.1
   vinil_blanco: 5.9,
   holo_clasico: 6.3,
   holo_puntos: 8.3,
